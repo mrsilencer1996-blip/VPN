@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ВПН Миньон — 100₽ в месяц</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #07060f;
+    --bg2: #0e0c1c;
+    --bg3: #131128;
+    --accent: #a78bfa;
+    --accent2: #60a5fa;
+    --grad: linear-gradient(135deg, #6366f1, #a78bfa, #60a5fa);
+    --grad2: linear-gradient(135deg, #818cf8, #c084fc);
+    --text: #f0f0ff;
+    --text2: #8b8aad;
+    --text3: #3b3860;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(139,92,246,0.3);
+    --card: rgba(255,255,255,0.03);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 5%;
+    background: rgba(6,8,16,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-emoji { font-size: 26px; line-height: 1; }
+  .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .btn-nav {
+    background: var(--grad);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .btn-nav:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* SECTIONS */
+  section { padding: 100px 5%; }
+
+  .label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+
+  h1, h2, h3 { font-family: 'Unbounded', sans-serif; }
+
+  /* ---- HERO ---- */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 120px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.1) 0%, rgba(96,165,250,0.05) 50%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; max-width: 800px; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(139,92,246,0.08);
+    border: 1px solid var(--border2);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 32px;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--grad);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  h1 {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+  h1 .accent {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  h1 .dim { color: var(--text2); }
+
+  .hero-desc {
+    font-size: 18px;
+    color: var(--text2);
+    max-width: 520px;
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+
+  .hero-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--grad);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 16px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-size: 15px;
+    padding: 16px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); background: rgba(139,92,246,0.06); }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .stat-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--text);
+    display: block;
+  }
+  .stat-label { font-size: 13px; color: var(--text2); }
+
+  /* ---- HOW IT WORKS ---- */
+  #how {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header { margin-bottom: 60px; }
+  .section-header h2 {
+    font-size: clamp(24px, 3.5vw, 44px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+  .section-header p { color: var(--text2); font-size: 17px; margin-top: 14px; max-width: 500px; }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+  .step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 40px 32px;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .step:first-child { border-radius: 12px 0 0 12px; }
+  .step:last-child { border-radius: 0 12px 12px 0; }
+  .step:hover { border-color: var(--border2); }
+
+  .step-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--text3);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .step-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+
+  .step h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+  .step p { color: var(--text2); font-size: 15px; }
+
+  /* ---- FEATURES ---- */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: border-color 0.3s, transform 0.2s;
+  }
+  .feature-card:hover { border-color: rgba(139,92,246,0.35); transform: translateY(-3px); }
+
+  .feature-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .feature-card h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.2px;
+  }
+  .feature-card p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+
+  /* ---- PROTOCOLS ---- */
+  #protocols { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .protocols-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 0;
+  }
+
+  .proto-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .proto-card.featured {
+    border-color: rgba(139,92,246,0.4);
+    background: rgba(139,92,246,0.04);
+  }
+
+  .proto-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  .proto-card.featured .proto-tag {
+    background: rgba(139,92,246,0.12);
+    color: var(--accent);
+    border: 1px solid rgba(139,92,246,0.3);
+  }
+  .proto-card:not(.featured) .proto-tag {
+    background: rgba(96,165,250,0.1);
+    color: var(--accent2);
+    border: 1px solid rgba(96,165,250,0.2);
+  }
+
+  .proto-card h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  .proto-card .proto-desc { color: var(--text2); font-size: 15px; margin-bottom: 28px; }
+
+  .proto-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .proto-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text2);
+  }
+  .proto-list li::before {
+    content: '→';
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .proto-card:not(.featured) .proto-list li::before {
+    background: linear-gradient(135deg, #60a5fa, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ---- PRICE ---- */
+  .single-price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+  .price-block {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    background: rgba(139,92,246,0.04);
+    border: 1px solid rgba(139,92,246,0.3);
+    border-radius: 20px;
+    padding: 40px 56px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .price-big {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: -3px;
+    line-height: 1;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .price-big sup { font-size: 32px; vertical-align: super; letter-spacing: 0; }
+  .price-big sub { font-size: 20px; vertical-align: baseline; letter-spacing: 0; -webkit-text-fill-color: var(--text2); font-weight: 400; }
+  .price-details { display: flex; flex-direction: column; gap: 10px; }
+  .price-details li {
+    display: flex; align-items: center; gap: 9px;
+    font-size: 15px; color: var(--text2); list-style: none;
+  }
+  .price-details li::before { content: '✓'; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; }
+
+  /* ---- FAQ ---- */
+  #faq { background: var(--bg2); border-top: 1px solid var(--border); }
+
+  .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 2px; }
+
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--border2); }
+
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 22px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    gap: 16px;
+  }
+
+  .faq-q .arrow {
+    color: var(--accent);
+    font-size: 18px;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-q .arrow { transform: rotate(45deg); }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .faq-item.open .faq-a { max-height: 200px; }
+  .faq-a p {
+    padding: 0 24px 22px;
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ---- CTA ---- */
+  #cta {
+    text-align: center;
+    padding: 120px 5%;
+    position: relative;
+    overflow: hidden;
+  }
+  #cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.09) 0%, rgba(96,165,250,0.04) 50%, transparent 70%);
+    pointer-events: none;
+  }
+
+  #cta h2 {
+    font-size: clamp(28px, 5vw, 56px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  #cta p {
+    color: var(--text2);
+    font-size: 18px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; position: relative; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: var(--text2); font-size: 14px; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--text); }
+
+  footer .copy { color: var(--text3); font-size: 13px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .steps, .features-grid, .protocols-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .step:first-child, .step:last-child { border-radius: 12px; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><span class="logo-emoji">🟡</span> ВПН <span>Миньон</span></div>
+  <div class="nav-links">
+    <a href="#how">Как это работает</a>
+    <a href="#protocols">Протоколы</a>
+    <a href="#pricing">Цена</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="https://t.me/your_bot" class="btn-nav">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.25l-2.01 9.47c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.873.75z"/></svg>
+    Начать в Telegram
+  </a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">V2Ray + Happ · Европейский сервер · 100₽/мес</div>
+    <h1>
+      Интернет<br>
+      без <span class="accent">блокировок</span><br>
+      <span class="dim">за сто рублей</span>
+    </h1>
+    <p class="hero-desc">
+      Простой VPN с белыми списками — только заблокированные сайты идут через сервер, остальное не трогаем. Управление в Telegram.
+    </p>
+    <div class="hero-cta">
+      <a href="https://t.me/your_bot" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.25l-2.01 9.47c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.873.75z"/></svg>
+        Подключиться за 100₽
+      </a>
+      <a href="#how" class="btn-ghost">Как это работает →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">100₽</span>
+        <span class="stat-label">в месяц, одна цена</span>
+      </div>
+      <div>
+        <span class="stat-num">🇪🇺</span>
+        <span class="stat-label">сервер в Европе</span>
+      </div>
+      <div>
+        <span class="stat-num">99.9%</span>
+        <span class="stat-label">uptime гарантия</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-header">
+    <span class="label">Как это работает</span>
+    <h2>Три шага до<br>защищённого соединения</h2>
+    <p>Никаких сложных настроек — только Telegram и 2 минуты твоего времени</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-icon">🤖</div>
+      <h3>Открой бот</h3>
+      <p>Напиши /start в нашем Telegram-боте. Никакой регистрации — только кнопки.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-icon">💳</div>
+      <h3>Выбери план</h3>
+      <p>Оплати через бот — поддерживаем карты, крипту и другие способы оплаты.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-icon">🔒</div>
+      <h3>Подключайся</h3>
+      <p>Бот пришлёт конфиг. Скопируй в приложение и наслаждайся свободным интернетом.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-header">
+    <span class="label">Преимущества</span>
+    <h2>Почему выбирают нас</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">⚡</span>
+      <h3>Высокая скорость</h3>
+      <p>Оптимизированный сервер без ограничения скорости. Стриминг, игры, звонки — без тормозов.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔐</span>
+      <h3>Нулевые логи</h3>
+      <p>Мы не храним никаких данных о твоей активности. Zero-log политика — это не просто слова.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📋</span>
+      <h3>Белые списки</h3>
+      <p>Только заблокированные сайты идут через VPN. Остальной трафик — напрямую. Скорость не падает.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📱</span>
+      <h3>Все устройства</h3>
+      <p>iOS, Android, Windows, macOS, Linux — один аккаунт для всех устройств одновременно.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🤖</span>
+      <h3>Управление в Telegram</h3>
+      <p>Оплата, конфиги, поддержка — всё прямо в боте. Никаких личных кабинетов и лишних приложений.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🇪🇺</span>
+      <h3>Сервер в Европе</h3>
+      <p>Стабильный европейский сервер с минимальным пингом. Отлично подходит для России.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROTOCOLS -->
+<section id="protocols">
+  <div class="section-header">
+    <span class="label">Технологии</span>
+    <h2>Два протокола —<br>двойная надёжность</h2>
+    <p>Автоматически подбираем лучший вариант под твоё соединение</p>
+  </div>
+  <div class="protocols-grid">
+    <div class="proto-card featured">
+      <span class="proto-tag">Рекомендуемый</span>
+      <h3>V2Ray</h3>
+      <p class="proto-desc">Современный протокол следующего поколения — обходит блокировки там, где другие пасуют.</p>
+      <ul class="proto-list">
+        <li>Работает там, где заблокированы обычные VPN</li>
+        <li>Маскировка трафика под обычный HTTPS</li>
+        <li>Поддержка VLESS, VMess, Trojan</li>
+        <li>Оптимизирован для высоких скоростей</li>
+        <li>Идеален для России и Китая</li>
+      </ul>
+    </div>
+    <div class="proto-card">
+      <span class="proto-tag">Резервный</span>
+      <h3>Happ</h3>
+      <p class="proto-desc">Проверенный протокол с упором на стабильность и совместимость со всеми устройствами.</p>
+      <ul class="proto-list">
+        <li>Максимальная совместимость с устройствами</li>
+        <li>Стабильное соединение в нестабильных сетях</li>
+        <li>Простая настройка — один QR-код</li>
+        <li>Автоматический фейловер при разрыве</li>
+        <li>Работает в корпоративных сетях</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-header" style="text-align:center;">
+    <span class="label">Цена</span>
+    <h2>Одна цена.<br>Без подвохов.</h2>
+  </div>
+  <div class="single-price">
+    <div class="price-block">
+      <div class="price-big"><sup>₽</sup>100<sub>/мес</sub></div>
+      <ul class="price-details">
+        <li>V2Ray + Happ протоколы</li>
+        <li>Белые списки — только нужное через VPN</li>
+        <li>Сервер в Европе</li>
+        <li>Все устройства</li>
+        <li>Управление в Telegram</li>
+      </ul>
+    </div>
+    <a href="https://t.me/your_bot" class="btn-primary" style="font-size:16px; padding:18px 40px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.25l-2.01 9.47c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.873.75z"/></svg>
+      Подключиться в Telegram
+    </a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-header" style="text-align: center;">
+    <span class="label">FAQ</span>
+    <h2>Частые вопросы</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Как подключить VPN на телефоне?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Напиши /start боту → оплати → получи конфиг. Для V2Ray нужно приложение v2rayNG (Android) или Streisand/Shadowrocket (iOS). Инструкция придёт прямо в бот.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Что такое белые списки и зачем это нужно?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Белые списки — это режим, при котором через VPN идут только заблокированные сайты (Instagram, YouTube и другие). Весь остальной трафик работает напрямую. Это быстрее и удобнее, чем гнать всё через сервер.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Вы храните мои данные или логи?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Нет. Мы не знаем, какие сайты ты посещаешь. Хранится только факт оплаты — для продления подписки.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        В чём разница между V2Ray и Happ?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <p>V2Ray — современный протокол, лучше обходит блокировки и DPI. Happ — стабильнее в слабых сетях и проще настраивается. Бот предложит оба конфига, выбери который работает лучше.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Как оплатить?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Оплата через Telegram-бот — карты, СБП, криптовалюта. 100₽ в месяц, никаких скрытых платежей и автосписаний.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Есть ли пробный период?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Да — 3 дня бесплатно для новых пользователей. Напиши /start боту и активируй пробный период одной кнопкой.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <h2>Попробуй 3 дня<br><span style="background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">бесплатно</span></h2>
+  <p>Без карты — просто открой бота и нажми кнопку</p>
+  <div class="cta-btns">
+    <a href="https://t.me/your_bot" class="btn-primary" style="font-size: 16px; padding: 18px 32px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.25l-2.01 9.47c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.873.75z"/></svg>
+      🟡 Открыть ВПН Миньон
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo"><span class="logo-emoji">🟡</span> ВПН <span>Миньон</span></div>
+  <div class="footer-links">
+    <a href="#">Политика конфиденциальности</a>
+    <a href="#">Условия использования</a>
+    <a href="https://t.me/your_support">Поддержка</a>
+  </div>
+  <span class="copy">© 2025 ВПН Миньон. Все права защищены.</span>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
